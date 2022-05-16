@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <link rel="stylesheet" href="./css/main.css">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="calculator">
+        <div class="box">
+    <h2 id="naglowek" >Kalkulator ceny paliwa</h2>
+    <br>
+    <label for="litry">Litry <input id='litry' type="number"></label>
+    
+    <br>
+    <label for="cenaRopy">Cena Ropy <input id='cenaRopy' type="number"></label>
+    
+    <br>
+    <label for="cenaBenzyny">Cena Benzyny <input id='cenaBenzyny' type="number"></label>
+
+    <br>
+    <label for="wynik">Wynik <input id='wynik' readonly></label>
+</div>
+<br>
+<div class="dol">
+    <label for="zmiana">Ropa</label>
+    <input type="radio" id='zmiana' name="wybieranie" value="ropa">
+    <label for="zmiana2">Benzyna</label>
+    <input type="radio" id='zmiana2' name="wybieranie" value="benzyna">
+    <br>
+    <button id='oblicz'>oblicz</button>
+</div>
+    </div>
+    <script>
+        var dcRopa = localStorage.getItem("CustomCenaRopy") || 7.50;
+        var dcBenzyna = localStorage.getItem("CustomCenaBenzyny") || 6.70;
+        var zmianaRopa = document.getElementById('zmiana');
+        var zmianaBenzyna = document.getElementById('zmiana2');
+        var oblicz = document.getElementById('oblicz');
+        var naglowek = document.getElementById('naglowek');
+        var customCenaRopy = document.getElementById('cenaRopy');
+        var customCenaBenzyny = document.getElementById('cenaBenzyny');
+        customCenaRopy.value = dcRopa;
+        customCenaBenzyny.value = dcBenzyna;
+
+        oblicz.addEventListener("click", obliczCene);
+        function obliczCene() {
+            var wynik = document.getElementById('wynik');
+            var litry = document.getElementById("litry").value;
+            localStorage.setItem("CustomCenaRopy", customCenaRopy.value);
+            localStorage.setItem("CustomCenaBenzyny", customCenaBenzyny.value);
+            if(zmianaRopa.checked == true) {
+                //ropa
+                var odp = litry * customCenaRopy.value + "zł";
+                wynik.value = odp;      
+
+            }
+            if(zmianaBenzyna.checked == true) {
+                //benzyna
+                var odp = litry * customCenaBenzyny.value + "zł";
+                wynik.value = odp;
+            
+            }
+        }
+    </script>
+</body>
+</html>
